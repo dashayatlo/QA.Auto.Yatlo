@@ -16,17 +16,25 @@ def test_user_not_exists(github_api):
 
 @pytest.mark.api
 def test_repo_can_be_found(github_api):
-    r = github_api.search_repo('become-qa-auto')
-    assert r['total_count'] == 57
-    assert 'become-qa-auto' in r['items'][0]['name']
+    r = github_api.search_repo("become-qa-auto")
+    assert r["total_count"] == 57
+    assert "become-qa-auto" in r["items"][0]["name"]
+
 
 @pytest.mark.api
 def test_repo_cannot_be_found(github_api):
-    r = github_api.search_repo('sergiibutenko_repo_non_exist')
-    assert r['total_count'] == 0
+    r = github_api.search_repo("sergiibutenko_repo_non_exist")
+    assert r["total_count"] == 0
 
 
 @pytest.mark.api
 def test_repo_with_single_char_be_found(github_api):
-    r = github_api.search_repo('s')
-    assert r['total_count'] != 0
+    r = github_api.search_repo("s")
+    assert r["total_count"] != 0
+
+
+@pytest.mark.api
+def test_emojis_can_be_used(github_api):
+    r = github_api.get_emojis()
+    emocode = '1f47c'
+    assert f"https://github.githubassets.com/images/icons/emoji/unicode/{emocode}png?v8" in r 
